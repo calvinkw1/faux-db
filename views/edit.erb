@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+<h2>Edit User</h2>
+
+  <form action="/users/:id" method="put">
+    First Name: <input type="text" name="first" value="<%=@user[:first]%>">
+    Last Name: <input type="text" name="last" value="<%=@user[:last]%>">
+    <input type="submit" value="Edit User">
+  </form>
+</body>
+</html>
