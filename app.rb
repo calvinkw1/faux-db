@@ -33,34 +33,24 @@ end
 post '/users' do
   users.push ({ first: params[:first], last: params[:last], id: id })
   id += 1
-  redirect to '/'
+  redirect '/'
 end
 
 # GET /users/:id - show a user's info by their id, this should display the info in a form
 get '/users/:id' do
-  users.each do |user|
-    if user[:id] == params[:id].to_i
-      @user = user
-    end
-  end
+  @user = users.find { |user| user[:id] == params[:id].to_i }
   erb :edit
 end
 
 # PUT /users/:id - update a user's info based on the form from GET /users/:id
 put '/users/:id' do
-  # teacher = teachers[params[:id].to_i - 1]
-
-  # teacher[:first] = params[:first]
-  # teacher[:last] = params[:last]
-
-  # redirect to '/'
-
-  @user = users[:first], users[:last]
-
-  @user[:first] = params[:first]
-  @user[:last] = params[:last]
-
-  redirect to '/users'
+  index = users.index{ |u| u[:id] == params[:id].to_i }
+  users[index] = { :first => params[:first], :last => params[:last], :id => params[:id].to_i }
+  redirect '/'
 end
 
 # DELETE /users/:id - delete a user by their id
+delete '/users/:id' do
+  users.delete_if { |user| user[:id] == params[:id].to_i }
+  redirect '/'
+end
